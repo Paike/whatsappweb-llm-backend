@@ -1,0 +1,58 @@
+{
+  "chatId": "496565656565@c.us",
+  "history": [
+    { "from": "496565656565@c.us", "body": "", "timestamp": 1721151794 },
+    { "from": "me", "body": "Hi", "timestamp": 1721151794 },
+    {
+      "from": "496565656565@c.us",
+      "body": "Hi handsome guy",
+      "timestamp": 1721157664
+    },
+    {
+      "from": "496565656565@c.us",
+      "body": "Guten Tag",
+      "timestamp": 1721229286
+    },
+    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721292283 },
+    { "from": "me", "body": "pong", "timestamp": 1721292284 },
+    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721295004 },
+    { "from": "me", "body": "pong", "timestamp": 1721295005 },
+    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721295127 },
+    { "from": "me", "body": "pong", "timestamp": 1721295127 },
+    { "from": "496565656565@c.us", "body": "Hello", "timestamp": 1721295132 },
+    { "from": "496565656565@c.us", "body": "You", "timestamp": 1721295139 },
+    {
+      "from": "496565656565@c.us",
+      "body": "Hallo I bims",
+      "timestamp": 1721297759
+    },
+    {
+      "from": "496565656565@c.us",
+      "body": "Hallo I bims",
+      "timestamp": 1721297928
+    },
+    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721298058 },
+    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721298112 },
+    {
+      "from": "496565656565@c.us",
+      "body": "Hi I bims",
+      "timestamp": 1721298140
+    },
+    {
+      "from": "496565656565@c.us",
+      "body": "Morning",
+      "timestamp": 1721298209
+    },
+    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299431 },
+    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299509 },
+    { "from": "496565656565@c.us", "body": "Hallo", "timestamp": 1721299610 },
+    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299880 },
+    { "from": "496565656565@c.us", "body": "Ja", "timestamp": 1721299938 },
+    { "from": "496565656565@c.us", "body": "Holla", "timestamp": 1721300096 }
+  ],
+  "lastMessage": {
+    "from": "496565656565@c.us",
+    "body": "Hallo wie geht’s",
+    "timestamp": 1721300754
+  }
+}
