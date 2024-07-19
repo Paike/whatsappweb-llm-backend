@@ -40,12 +40,9 @@ model = lr.language_models.OpenAIGPT(config)
 print(os.getenv('LLM_API_URL'))
 
 def get_messages_from_request(data):
-    # Initialize variables for transformation
     assistant = 'assistant'
     messages = []
-    # Process history messages
 
-    # print(history)
     for message in data['history']:
         messages.append(
             LLMMessage(
@@ -54,8 +51,9 @@ def get_messages_from_request(data):
                 timestamp=message['timestamp']
             )
         )
-    # # Process last message
+
     last_message = data['lastMessage']
+
     messages.append(
         LLMMessage(
             role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
@@ -80,18 +78,18 @@ def get_messages_from_request(data):
 @app.route('/api/inference', methods=['POST'])
 def post_data():
     content = request.json
-    # response = {'received': content}
+
     messages = []
     messages.append(
         LLMMessage(content=os.getenv('LLM_SYSTEM_MESSAGE'), role=Role.SYSTEM), 
     )
-    messages = messages.extend(get_messages_from_request(content))
-    
-    print(messages)
+
+    messages.extend(get_messages_from_request(content))
+
     response = model.chat(messages=messages, max_tokens=200)
 
     return jsonify(response.message.replace('<|eot_id|>', ''))
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+    app.run(debug=True, port=os.getenv('FLASK_PORT'))
