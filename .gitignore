@@ -1,0 +1,6 @@
+.venv
+logs
+.env
+compose.yaml
+sample.json
+test.py

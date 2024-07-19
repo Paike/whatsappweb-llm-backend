@@ -1,58 +1,141 @@
 {
-  "chatId": "496565656565@c.us",
+  "chatId": "4915771577049@c.us",
   "history": [
-    { "from": "496565656565@c.us", "body": "", "timestamp": 1721151794 },
-    { "from": "me", "body": "Hi", "timestamp": 1721151794 },
+    { "from": "4915771577049@c.us", "body": "", "timestamp": 1721151794 },
+    { "from": "assistant", "body": "Hi", "timestamp": 1721151794 },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Hi handsome guy",
       "timestamp": 1721157664
     },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Guten Tag",
       "timestamp": 1721229286
     },
-    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721292283 },
-    { "from": "me", "body": "pong", "timestamp": 1721292284 },
-    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721295004 },
-    { "from": "me", "body": "pong", "timestamp": 1721295005 },
-    { "from": "496565656565@c.us", "body": "!ping", "timestamp": 1721295127 },
-    { "from": "me", "body": "pong", "timestamp": 1721295127 },
-    { "from": "496565656565@c.us", "body": "Hello", "timestamp": 1721295132 },
-    { "from": "496565656565@c.us", "body": "You", "timestamp": 1721295139 },
+    { "from": "4915771577049@c.us", "body": "!ping", "timestamp": 1721292283 },
+    { "from": "assistant", "body": "pong", "timestamp": 1721292284 },
+    { "from": "4915771577049@c.us", "body": "!ping", "timestamp": 1721295004 },
+    { "from": "assistant", "body": "pong", "timestamp": 1721295005 },
+    { "from": "4915771577049@c.us", "body": "!ping", "timestamp": 1721295127 },
+    { "from": "assistant", "body": "pong", "timestamp": 1721295127 },
+    { "from": "4915771577049@c.us", "body": "Hello", "timestamp": 1721295132 },
+    { "from": "4915771577049@c.us", "body": "You", "timestamp": 1721295139 },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Hallo I bims",
       "timestamp": 1721297759
     },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Hallo I bims",
       "timestamp": 1721297928
     },
-    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721298058 },
-    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721298112 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721298058 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721298112 },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Hi I bims",
       "timestamp": 1721298140
     },
     {
-      "from": "496565656565@c.us",
+      "from": "4915771577049@c.us",
       "body": "Morning",
       "timestamp": 1721298209
     },
-    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299431 },
-    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299509 },
-    { "from": "496565656565@c.us", "body": "Hallo", "timestamp": 1721299610 },
-    { "from": "496565656565@c.us", "body": "Hi", "timestamp": 1721299880 },
-    { "from": "496565656565@c.us", "body": "Ja", "timestamp": 1721299938 },
-    { "from": "496565656565@c.us", "body": "Holla", "timestamp": 1721300096 }
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721299431 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721299509 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721299610 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721299880 },
+    { "from": "4915771577049@c.us", "body": "Ja", "timestamp": 1721299938 },
+    { "from": "4915771577049@c.us", "body": "Holla", "timestamp": 1721300096 },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Hallo wie geht’s",
+      "timestamp": 1721300754
+    },
+    { "from": "4915771577049@c.us", "body": "Ho", "timestamp": 1721302037 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302226 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302248 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302288 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302374 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302402 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302440 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721302661 },
+    { "from": "4915771577049@c.us", "body": "Holla", "timestamp": 1721302849 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302867 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721302880 },
+    { "from": "4915771577049@c.us", "body": "😃", "timestamp": 1721303057 },
+    { "from": "4915771577049@c.us", "body": "😃", "timestamp": 1721303156 },
+    { "from": "4915771577049@c.us", "body": "😃", "timestamp": 1721303173 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305033 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305068 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721305217 },
+    { "from": "4915771577049@c.us", "body": "U", "timestamp": 1721305290 },
+    { "from": "4915771577049@c.us", "body": "H", "timestamp": 1721305659 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721305673 },
+    { "from": "4915771577049@c.us", "body": "The", "timestamp": 1721305793 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721305881 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305909 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305941 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305956 },
+    { "from": "4915771577049@c.us", "body": "Hi", "timestamp": 1721305987 },
+    { "from": "4915771577049@c.us", "body": "Ho", "timestamp": 1721306017 },
+    { "from": "4915771577049@c.us", "body": "Hallo", "timestamp": 1721306033 },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Yes I’m sorry about that. How are you?",
+      "timestamp": 1721306089
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Yes, what color do you like?",
+      "timestamp": 1721306113
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "That’s bland",
+      "timestamp": 1721306162
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "You don’t have emotions, I am sorry for that",
+      "timestamp": 1721306194
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Can you program?",
+      "timestamp": 1721306292
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Did you receive my last message?",
+      "timestamp": 1721306319
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Do you have a name?",
+      "timestamp": 1721306429
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Do you have a name?",
+      "timestamp": 1721306482
+    },
+    {
+      "from": "assistant",
+      "body": "I don't have a personal name, but you can call me \"Assistant\" or \"AI\" if you like. I'm a machine learning model designed to understand and respond to human language, so I don't have a personal identity or emotions.<|eot_id|>",
+      "timestamp": 1721306489
+    },
+    {
+      "from": "4915771577049@c.us",
+      "body": "Speak Chinese please",
+      "timestamp": 1721306655
+    }
   ],
   "lastMessage": {
-    "from": "496565656565@c.us",
-    "body": "Hallo wie geht’s",
-    "timestamp": 1721300754
+    "from": "4915771577049@c.us",
+    "body": "Speak Chinese please",
+    "timestamp": 1721306680
   }
 }

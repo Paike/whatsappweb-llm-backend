@@ -1,84 +1,97 @@
 from flask import Flask, jsonify, request
 import hashlib
-import datetime
-import json
 import langroid as lr
+import langroid.language_models as lm
+import os
 
 app = Flask(__name__)
 
 Role = lr.language_models.Role
 LLMMessage = lr.language_models.LLMMessage
-config = lr.language_models.OpenAIGPTConfig(
-    chat_model=lr.language_models.OpenAIChatModel.GPT4,
-)
+# config = lr.language_models.OpenAIGPTConfig(
+#     chat_model=lr.language_models.OpenAIChatModel.GPT4,
+# )
+config = lm.OpenAIGPTConfig(
+    
+    api_base=os.getenv('LLM_API_URL')
+    )
 model = lr.language_models.OpenAIGPT(config)
 
+# config = lr.ChatAgentConfig(
+#     name="Assistant",
+#     llm = lm.OpenAIGPTConfig(
+#         api_base=os.getenv('LLM_API_URL')
+#     ),
+#     use_tools=False, 
+#     use_functions_api=False, 
+#     vecdb=None,
+# )
+# agent = lr.ChatAgent(config=config)
 
-def make_chat_history(data):
+
+# task = lr.Task(agent, 
+# name="Assistant", 
+# system_message="you are a dog and the mans best friend.", 
+# interactive=False,
+# )
+
+# print(task.run())
+
+print(os.getenv('LLM_API_URL'))
+
+def get_messages_from_request(data):
     # Initialize variables for transformation
-    assistant = "assistant"
+    assistant = 'assistant'
     messages = []
-
     # Process history messages
+
+    # print(history)
     for message in data['history']:
-        role = "assistant" if message['from'] == assistant else "user"
-        content = message['body']
-        utc_time = datetime.datetime.fromtimestamp(message['timestamp'], datetime.UTC)
-        localized_datetime = utc_time + datetime.timedelta(hours=2)
-        # Format datetime as ISO 8601 with 'Z' suffix for UTC
-        timestamp = localized_datetime.isoformat() + 'Z'        
         messages.append(
-            {
-            "role": role,
-            "content": content,
-            "timestamp": timestamp
-        })
-
-    # Process last message
+            LLMMessage(
+                role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
+                content=message['body'],
+                timestamp=message['timestamp']
+            )
+        )
+    # # Process last message
     last_message = data['lastMessage']
-    role = "assistant" if message['from'] == assistant else "user"
-    content = last_message['body']
-    utc_time = datetime.datetime.fromtimestamp(message['timestamp'], datetime.UTC)
-    localized_datetime = utc_time + datetime.timedelta(hours=2)
-    # Format datetime as ISO 8601 with 'Z' suffix for UTC
-    timestamp = localized_datetime.isoformat() + 'Z'   
-    messages.append({
-        "role": role,
-        "content": content,
-        "timestamp": timestamp
-    })
+    messages.append(
+        LLMMessage(
+            role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
+            content=last_message['body'],
+            timestamp=message['timestamp']
+        )
+    )
 
-    # Construct the new JSON object
-    new_json_data = {
-        "messages": messages
-    }
+    return messages
 
-    # Convert to JSON string
-    new_json_str = json.dumps(new_json_data, indent=2)
-    print(new_json_str)
 
-def hash_id_with_suffix(id):
-    # Convert phone number to bytes and hash using SHA-256
-    hash_object = hashlib.sha256(id.encode())
-    hash_hex = hash_object.hexdigest()
-    return hash_hex
 
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    data = {"message": "Hello from Flask"}
-    return jsonify(data)
+
+# @app.route('/api/data', methods=['GET'])
+# def get_data():
+#     data = {'message': 'Hello from Flask'}
+#     return jsonify(data)
 
 # standard messaging route
-@app.route('/api/data', methods=['POST'])
+
+
+@app.route('/api/inference', methods=['POST'])
 def post_data():
     content = request.json
-    response = {"received": content}
-    print(content)
-    make_chat_history(content)
+    # response = {'received': content}
+    messages = []
+    messages.append(
+        LLMMessage(content=os.getenv('LLM_SYSTEM_MESSAGE'), role=Role.SYSTEM), 
+    )
+    messages = messages.extend(get_messages_from_request(content))
+    
+    print(messages)
+    response = model.chat(messages=messages, max_tokens=200)
 
+    return jsonify(response.message.replace('<|eot_id|>', ''))
 
-
-    return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5050)
