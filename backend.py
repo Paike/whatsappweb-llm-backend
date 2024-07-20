@@ -3,7 +3,7 @@ import hashlib
 import langroid as lr
 import langroid.language_models as lm
 import os
-import datetime
+from datetime import datetime
 import logging
 
 
