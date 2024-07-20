@@ -19,6 +19,8 @@ LLMMessage = lr.language_models.LLMMessage
 LLM_API_HOST = os.getenv("LLM_API_HOST", "127.0.0.1")
 LLM_API_SCHEME = os.getenv("LLM_API_SCHEME", "http")
 LLM_API_PORT = os.getenv("LLM_API_PORT", 8000)
+LLM_API_KEY = os.getenv("LLM_API_KEY", "nokey")
+LLM_API_URL = os.getenv("LLM_API_URL", f"{LLM_API_SCHEME}://{LLM_API_HOST}:{LLM_API_PORT}")
 
 current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 LLM_SYSTEM_MESSAGE = os.getenv("LLM_SYSTEM_MESSAGE", "You are a helpful assistant.")
@@ -27,7 +29,9 @@ LLM_SYSTEM_MESSAGE += f" The current date and time is: {current_time}."
 LLM_MAX_TOKENS = os.getenv("LLM_MAX_TOKENS", 300)
 DEBUG = os.getenv('DEBUG', False)
 FLASK_PORT = os.getenv('BACKEND_API_PORT', 5000)
-LLM_API_URL = f"{LLM_API_SCHEME}://{LLM_API_HOST}:{LLM_API_PORT}"
+
+
+
 logger = app.logger
 logger.setLevel(logging.DEBUG) if DEBUG else logger.setLevel(logging.INFO)
 Role = lr.language_models.Role
@@ -42,10 +46,11 @@ logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_SYSTEM_MESSAGE}")
 logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_MAX_TOKENS}")
 
 config = lm.OpenAIGPTConfig(
-    api_base=LLM_API_URL
+    api_base=LLM_API_URL,
+    api_key=LLM_API_KEY
 )
 
-model = lr.language_models.OpenAIGPT(config)
+model = lm.OpenAIGPT(config)
 
 # config = lr.ChatAgentConfig(
 #     name="Assistant",
