@@ -3,7 +3,7 @@ import hashlib
 import langroid as lr
 import langroid.language_models as lm
 import os
-
+import datetime
 import logging
 
 
@@ -19,8 +19,11 @@ LLMMessage = lr.language_models.LLMMessage
 LLM_API_HOST = os.getenv("LLM_API_HOST", "127.0.0.1")
 LLM_API_SCHEME = os.getenv("LLM_API_SCHEME", "http")
 LLM_API_PORT = os.getenv("LLM_API_PORT", 8000)
-LLM_SYSTEM_MESSAGE = os.getenv(
-    "LLM_SYSTEM_MESSAGE", "You are a helpful assistant")
+
+current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+LLM_SYSTEM_MESSAGE = os.getenv("LLM_SYSTEM_MESSAGE", "You are a helpful assistant.")
+LLM_SYSTEM_MESSAGE += f" The current date and time is: {current_time}."
+
 LLM_MAX_TOKENS = os.getenv("LLM_MAX_TOKENS", 300)
 DEBUG = os.getenv('DEBUG', False)
 FLASK_PORT = os.getenv('BACKEND_API_PORT', 5000)
