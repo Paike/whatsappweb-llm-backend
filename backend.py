@@ -123,4 +123,4 @@ def post_data():
 
 
 if __name__ == '__main__':
-    app.run(debug=DEBUG, port=FLASK_PORT)
+    app.run(debug=DEBUG, port=FLASK_PORT, host="0.0.0.0")
