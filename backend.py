@@ -25,7 +25,6 @@ DEBUG = os.getenv('DEBUG', False)
 FLASK_PORT = os.getenv('FLASK_PORT', 5000)
 
 logger = app.logger
-print(logger.level)
 logger.setLevel(logging.DEBUG) if DEBUG else logger.setLevel(logging.INFO)
 Role = lr.language_models.Role
 LLMMessage = lr.language_models.LLMMessage
