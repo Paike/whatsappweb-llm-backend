@@ -22,9 +22,7 @@ LLM_API_PORT = os.getenv("LLM_API_PORT", 8000)
 LLM_API_KEY = os.getenv("LLM_API_KEY", "nokey")
 LLM_API_URL = os.getenv("LLM_API_URL", f"{LLM_API_SCHEME}://{LLM_API_HOST}:{LLM_API_PORT}")
 
-current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 LLM_SYSTEM_MESSAGE = os.getenv("LLM_SYSTEM_MESSAGE", "You are a helpful assistant.")
-LLM_SYSTEM_MESSAGE += f" The current date and time is: {current_time}."
 
 LLM_MAX_TOKENS = os.getenv("LLM_MAX_TOKENS", 300)
 DEBUG = os.getenv('DEBUG', False)
@@ -119,10 +117,12 @@ def post_data():
     content = request.json
     logger.debug(f"Request: {request}")
     messages = []
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    system_message = LLM_SYSTEM_MESSAGE + f" The current date and time is: {current_time}."
     messages.append(
-        LLMMessage(content=LLM_SYSTEM_MESSAGE, role=Role.SYSTEM),
+        LLMMessage(content=system_message, role=Role.SYSTEM),
     )
-
+    system_message = ""
     messages.extend(get_messages_from_request(content))
     logger.debug(f"Messages: {messages}")
     response = model.chat(messages=messages, max_tokens=LLM_MAX_TOKENS)
