@@ -16,27 +16,30 @@ LLMMessage = lr.language_models.LLMMessage
 #     chat_model=lr.language_models.OpenAIChatModel.GPT4,
 # )
 
-LLM_API_URL = os.getenv("LLM_API_URL", "127.0.0.1")
+LLM_API_HOST = os.getenv("LLM_API_HOST", "127.0.0.1")
+LLM_API_SCHEME = os.getenv("LLM_API_SCHEME", "http")
 LLM_API_PORT = os.getenv("LLM_API_PORT", 8000)
 LLM_SYSTEM_MESSAGE = os.getenv(
     "LLM_SYSTEM_MESSAGE", "You are a helpful assistant")
 LLM_MAX_TOKENS = os.getenv("LLM_MAX_TOKENS", 300)
 DEBUG = os.getenv('DEBUG', False)
-FLASK_PORT = os.getenv('FLASK_PORT', 5000)
-
+FLASK_PORT = os.getenv('BACKEND_API_PORT', 5000)
+LLM_API_URL = f"{LLM_API_SCHEME}://{LLM_API_HOST}:{LLM_API_PORT}"
 logger = app.logger
 logger.setLevel(logging.DEBUG) if DEBUG else logger.setLevel(logging.INFO)
 Role = lr.language_models.Role
 LLMMessage = lr.language_models.LLMMessage
 
 logger.info(f"LLM_API_URL: {LLM_API_URL}")
-logger.info(f"LLM_API_PORT: {LLM_API_PORT}")
-logger.info(f"FLASK_PORT: {FLASK_PORT}")
+logger.debug(f"LLM_API_SCHEME: {LLM_API_SCHEME}")
+logger.debug(f"LLM_API_HOST: {LLM_API_HOST}")
+logger.debug(f"LLM_API_PORT: {LLM_API_PORT}")
+logger.info(f"BACKEND_API_PORT: {FLASK_PORT}")
 logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_SYSTEM_MESSAGE}")
 logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_MAX_TOKENS}")
 
 config = lm.OpenAIGPTConfig(
-    api_base=f"{LLM_API_URL}:{LLM_API_PORT}"
+    api_base=LLM_API_URL
 )
 
 model = lr.language_models.OpenAIGPT(config)
@@ -44,7 +47,7 @@ model = lr.language_models.OpenAIGPT(config)
 # config = lr.ChatAgentConfig(
 #     name="Assistant",
 #     llm = lm.OpenAIGPTConfig(
-#         api_base=os.getenv('LLM_API_URL')
+#         api_base=os.getenv('LLM_API_HOST')
 #     ),
 #     use_tools=False,
 #     use_functions_api=False,
@@ -88,7 +91,7 @@ def get_messages_from_request(data):
     return messages
 
 
-@app.route('/api/healthcheck', methods=['GET'])
+@app.route('/healthcheck', methods=['GET'])
 def healthcheck():
     # Perform your health checks here (e.g., database, external services)
     # For simplicity, we'll just return a static response
@@ -103,7 +106,7 @@ def healthcheck():
     return jsonify(health_status), 200
 
 
-@app.route('/api/inference', methods=['POST'])
+@app.route('/inference', methods=['POST'])
 def post_data():
     content = request.json
     logger.debug(f"Request: {request}")
