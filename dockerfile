@@ -29,5 +29,5 @@ COPY --from=builder /app ./
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["/tini", "--"]
 CMD ["python", "/app/backend.py"]
