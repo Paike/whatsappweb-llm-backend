@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc build-essential
+    apt-get install -y --no-install-recommends gcc build-essential tini
 
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -21,6 +21,8 @@ COPY ["backend.py", "/app/"]
 # final stage
 FROM python:3.12.2-slim AS deploy 
 
+COPY --from=builder /usr/bin/tini /usr/bin/tini
+
 COPY --from=builder /opt/venv /opt/venv
 
 WORKDIR /app
@@ -29,5 +31,5 @@ COPY --from=builder /app ./
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-ENTRYPOINT ["/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["python", "/app/backend.py"]
