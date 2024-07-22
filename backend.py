@@ -2,10 +2,13 @@ from flask import Flask, jsonify, request
 import hashlib
 import langroid as lr
 import langroid.language_models as lm
+from langroid.utils.configuration import settings as langroid_settings
+
 import os
 from datetime import datetime
 import logging
 
+langroid_settings.debug = True
 
 app = Flask(__name__)
 logger = app.logger
@@ -76,6 +79,7 @@ def get_messages_from_request(data):
     messages = []
 
     for message in data['history']:
+        logger.debug(f"Message: {message}")
         messages.append(
             LLMMessage(
                 role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
@@ -85,19 +89,20 @@ def get_messages_from_request(data):
         )
 
     last_message = data['lastMessage']
+    logger.debug(f"Last message: {last_message}")
 
     messages.append(
         LLMMessage(
-            role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
+            role=Role.ASSISTANT if last_message['from'] == assistant else Role.USER,
             content=last_message['body'],
-            timestamp=message['timestamp']
+            timestamp=last_message['timestamp']
         )
     )
 
     return messages
 
 
-@app.route('/healthcheck', methods=['GET'])
+@app.route('/health', methods=['GET'])
 def healthcheck():
     # Perform your health checks here (e.g., database, external services)
     # For simplicity, we'll just return a static response
@@ -117,7 +122,7 @@ def post_data():
     content = request.json
     logger.debug(f"Request: {request}")
     messages = []
-    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S (%A)')
     system_message = LLM_SYSTEM_MESSAGE + f" The current date and time is: {current_time}."
     messages.append(
         LLMMessage(content=system_message, role=Role.SYSTEM),
