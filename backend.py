@@ -23,6 +23,7 @@ LLM_API_HOST = os.getenv("LLM_API_HOST", "127.0.0.1")
 LLM_API_SCHEME = os.getenv("LLM_API_SCHEME", "http")
 LLM_API_PORT = os.getenv("LLM_API_PORT", 8000)
 LLM_API_KEY = os.getenv("LLM_API_KEY", "nokey")
+LLM_API_MODEL = os.getenv("LLM_API_MODEL", "gpt-4o-mini")
 LLM_API_URL = os.getenv("LLM_API_URL", f"{LLM_API_SCHEME}://{LLM_API_HOST}:{LLM_API_PORT}")
 
 LLM_SYSTEM_MESSAGE = os.getenv("LLM_SYSTEM_MESSAGE", "You are a helpful assistant.")
@@ -38,17 +39,19 @@ logger.setLevel(logging.DEBUG) if DEBUG else logger.setLevel(logging.INFO)
 Role = lr.language_models.Role
 LLMMessage = lr.language_models.LLMMessage
 
-logger.info(f"LLM_API_URL: {LLM_API_URL}")
 logger.debug(f"LLM_API_SCHEME: {LLM_API_SCHEME}")
 logger.debug(f"LLM_API_HOST: {LLM_API_HOST}")
 logger.debug(f"LLM_API_PORT: {LLM_API_PORT}")
+logger.info(f"LLM_API_URL: {LLM_API_URL}")
+logger.info(f"LLM_API_MODEL: {LLM_API_MODEL}")
 logger.info(f"BACKEND_API_PORT: {FLASK_PORT}")
 logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_SYSTEM_MESSAGE}")
 logger.info(f"LLM_SYSTEM_MESSAGE: {LLM_MAX_TOKENS}")
 
 config = lm.OpenAIGPTConfig(
     api_base=LLM_API_URL,
-    api_key=LLM_API_KEY
+    api_key=LLM_API_KEY,
+    chat_model=LLM_API_MODEL
 )
 
 model = lm.OpenAIGPT(config)
@@ -124,6 +127,7 @@ def post_data():
     messages = []
     current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S (%A)')
     system_message = LLM_SYSTEM_MESSAGE + f" The current date and time is: {current_time}."
+    logger.debug(f"Current system message: {system_message}")
     messages.append(
         LLMMessage(content=system_message, role=Role.SYSTEM),
     )
