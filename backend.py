@@ -32,6 +32,7 @@ LLM_SYSTEM_MESSAGE = os.getenv("LLM_SYSTEM_MESSAGE", "You are a helpful assistan
 
 LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", 300))
 DEBUG = os.getenv('DEBUG', False)
+STOP = False
 FLASK_PORT = os.getenv('BACKEND_API_PORT', 5000)
 
 
@@ -61,16 +62,23 @@ config = lm.OpenAIGPTConfig(
 model = lm.OpenAIGPT(config)
 
 def get_system_message():
+    
+    system_message = LLM_SYSTEM_MESSAGE
 
+    current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S (%A)')
+    logger.debug(f"Date and time: {current_time}")
+    # system_message = LLM_SYSTEM_MESSAGE + f" The current date and time is: {current_time}."
+    # logger.debug(f"Current system message: {system_message}")
+    system_message = system_message.replace('{datetime}', current_time)
     try:
         with open(CONTEXT_FILEPATH, 'r') as file:
             context = file.read()
-        system_message = LLM_SYSTEM_MESSAGE.replace('{context}', context)
+        system_message = system_message.replace('{context}', context)
         logger.debug(f"Injecting context")
     except FileNotFoundError:
         # Handle the case where the file does not exist
         context = ""  # Or any default context you want to use
-        system_message = LLM_SYSTEM_MESSAGE.replace('{context}', context)
+        system_message = system_message.replace('{context}', context)
         # logger.debug(f"System message: {system_message}")
         logger.debug(f"There is no context file")
     return system_message
@@ -81,6 +89,7 @@ def get_messages_from_request(data):
 
     for message in data['history']:
         logger.debug(f"Message: {message}")
+
         messages.append(
             LLMMessage(
                 role=Role.ASSISTANT if message['from'] == assistant else Role.USER,
@@ -124,16 +133,35 @@ def post_data():
     content = request.json
     logger.debug(f"Request: {request}")
     messages = []
-    # current_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S (%A)')
-    # system_message = LLM_SYSTEM_MESSAGE + f" The current date and time is: {current_time}."
-    # logger.debug(f"Current system message: {system_message}")
+
     messages.append(
         LLMMessage(content=get_system_message(), role=Role.SYSTEM),
     )
     system_message = ""
     messages.extend(get_messages_from_request(content))
     logger.debug(f"Messages: {messages}")
+    # for message in messages:
+    #     if message.role == Role.USER and '!stop' in message.content:
+    #         logger.debug("Received stop signal")
+    #         return jsonify(f"Vielen Dank für das nette Gespräch! Um den Chat neu zu starten, leeren Sie bitte den Chat. Auf Wiedersehen!")
+    
+    latest_command = None
+    command = None
+    for message in messages:
+        if message.content == '!stop' or message.content == '!start':
+            if latest_command is None or message.timestamp > latest_command.timestamp:
+                command = message.content
+
+    logger.debug(f"Command: {command}")
+    if command == '!stop':
+        logger.debug("Received stop signal")
+        return jsonify("")        
+    if command == '!start':
+        logger.debug("Received start signal")      
+        
+
     response = model.chat(messages=messages, max_tokens=LLM_MAX_TOKENS)
+    
     logger.debug(f"LLM Response: {response}")
     return jsonify(response.message.replace('<|eot_id|>', ''))
 
